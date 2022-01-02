@@ -8,10 +8,10 @@ namespace CRUD2.Interfaces
 {
     public interface IBlogPostService
     {
-        public IEnumerable<BlogPost> GetBlogPosts();
-        public BlogPost GetBlogPostById(int id);
+        List<BlogPost> GetBlogPosts();
+        BlogPost GetBlogPostById(int id);
         Task CreateBlogPost(BlogPost blogPost);
-        public void DeleteBlogPost(int id);
-        public void UpdateBlogPost(BlogPost blogPost);
+        Task DeleteBlogPost(int id);
+        Task UpdateBlogPost(BlogPost blogPost);
     }
 }

@@ -3,10 +3,6 @@ using CRUD2.Interfaces;
 using CRUD2.Mapper;
 using CRUD2.ServiceHandler.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CRUD2.ServiceHandler
 {

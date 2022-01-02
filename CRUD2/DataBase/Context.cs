@@ -1,10 +1,6 @@
 ﻿using CRUD2.DataBase.Configurations;
 using CRUD2.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CRUD2.DataBase
 {

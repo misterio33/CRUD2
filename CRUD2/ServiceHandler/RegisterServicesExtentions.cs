@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CRUD2.Interfaces;
+using CRUD2.Interfaces.Repositories;
 using CRUD2.Mapper;
 using CRUD2.ServiceHandler.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace CRUD2.ServiceHandler
             IMapper mapper = mappingConfiguration.CreateMapper();
 
             services.AddSingleton(mapper);
+            services.AddTransient<IBlogPostRepository, BlogPostService>();
             services.AddTransient<IBlogPostService, BlogPostService>();
         }
     }

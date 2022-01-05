@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CRUD2.Entities;
 using CRUD2.Interfaces;
+using CRUD2.Interfaces.Repositories;
 using CRUD2.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,11 +13,13 @@ namespace CRUD2.Controllers
     public class BlogPostController : ControllerBase
     {
         private readonly IMapper mapper;
+        private readonly IBlogPostRepository blogPostRepository;
         private readonly IBlogPostService blogPostService;
 
-        public BlogPostController(IMapper mapper, IBlogPostService blogPostService)
+        public BlogPostController(IMapper mapper, IBlogPostRepository blogPostRepository, IBlogPostService blogPostService)
         {
             this.mapper = mapper;
+            this.blogPostRepository = blogPostRepository;
             this.blogPostService = blogPostService;
         }
 
@@ -29,7 +32,7 @@ namespace CRUD2.Controllers
         public async Task<IActionResult> CreateNewBlogPost(NewBlogPostViewModel newBlogPostViewModel)
         {
             var newBlogPost = mapper.Map<BlogPost>(newBlogPostViewModel);
-            await blogPostService.CreateBlogPost(newBlogPost);
+            await blogPostRepository.CreateBlogPost(newBlogPost);
             return Ok();
         }
 
@@ -41,7 +44,7 @@ namespace CRUD2.Controllers
         [HttpGet("Get blog post by ID")]
         public async Task<IActionResult> GetBlogPostById(int id)
         {
-            var blog =  blogPostService.GetBlogPostById(id);
+            var blog =  blogPostRepository.GetBlogPostById(id);
             return Ok(blog);
         }
 
@@ -52,7 +55,7 @@ namespace CRUD2.Controllers
         [HttpGet("Get all blog posts")]
         public async Task<IActionResult> GetBlogPosts()
         {
-            var blogs = blogPostService.GetBlogPosts();
+            var blogs = blogPostRepository.GetBlogPosts();
             return Ok(blogs);
         }
 
@@ -64,7 +67,7 @@ namespace CRUD2.Controllers
         [HttpDelete("Delete blog post by ID")]
         public async Task<IActionResult> DeleteBlogPost(int id)
         {
-            await blogPostService.DeleteBlogPost(id);
+            await blogPostRepository.DeleteBlogPost(id);
             return Ok();
         }
 
@@ -77,8 +80,15 @@ namespace CRUD2.Controllers
         public async Task<IActionResult> UpdateBlogPost(UpdateBlogPostViewModel updateBlogPostViewModel)
         {
             var updatedBlog = mapper.Map<BlogPost>(updateBlogPostViewModel);
-            await blogPostService.UpdateBlogPost(updatedBlog);
+            await blogPostRepository.UpdateBlogPost(updatedBlog);
             return Ok();
+        }
+
+        [HttpGet("Get blog post Title")]
+        public async Task<IActionResult> GetBlogPostTitle(int id)
+        {
+            var title = blogPostService.GetBlogPostTitle(id);
+            return Ok(title);
         }
 
     }
